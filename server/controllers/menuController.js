@@ -16,13 +16,22 @@ class MenuController {
             });
 
 
-            res.status(201).json(menu);
+            res.status(201).json({
+
+                success:true,
+                message:"Menu created successfully",
+                data:menu
+
+            });
 
 
         } catch (error) {
 
             res.status(500).json({
-                message: error.message
+
+                success:false,
+                message:error.message
+
             });
 
         }
@@ -38,13 +47,23 @@ class MenuController {
 
             const menus = await Menu.find();
 
-            res.json(menus);
+
+            res.json({
+
+                success:true,
+                message:"Menus fetched successfully",
+                data:menus
+
+            });
 
 
         } catch (error) {
 
             res.status(500).json({
-                message: error.message
+
+                success:false,
+                message:error.message
+
             });
 
         }
@@ -65,19 +84,30 @@ class MenuController {
             if(!menu){
 
                 return res.status(404).json({
+
+                    success:false,
                     message:"Menu not found"
+
                 });
 
             }
 
 
-            res.json(menu);
+            res.json({
+
+                success:true,
+                data:menu
+
+            });
 
 
         } catch (error) {
 
             res.status(500).json({
-                message: error.message
+
+                success:false,
+                message:error.message
+
             });
 
         }
@@ -98,7 +128,6 @@ class MenuController {
             };
 
 
-            // ila user upload image jdida
             if(req.file){
 
                 updateData.image = req.file.filename;
@@ -120,30 +149,42 @@ class MenuController {
             );
 
 
+
             if(!menu){
 
                 return res.status(404).json({
+
+                    success:false,
                     message:"Menu not found"
+
                 });
 
             }
 
 
 
-            res.json(menu);
+            res.json({
+
+                success:true,
+                message:"Menu updated successfully",
+                data:menu
+
+            });
 
 
 
         } catch (error) {
 
             res.status(500).json({
-                message: error.message
+
+                success:false,
+                message:error.message
+
             });
 
         }
 
     }
-
 
 
 
@@ -157,31 +198,42 @@ class MenuController {
             const menu = await Menu.findByIdAndDelete(req.params.id);
 
 
+
             if(!menu){
 
                 return res.status(404).json({
+
+                    success:false,
                     message:"Menu not found"
+
                 });
 
             }
 
 
+
             res.json({
 
-                message:"Menu deleted"
+                success:true,
+                message:"Menu deleted successfully"
 
             });
+
 
 
         } catch (error) {
 
             res.status(500).json({
-                message: error.message
+
+                success:false,
+                message:error.message
+
             });
 
         }
 
     }
+
 
 }
 
