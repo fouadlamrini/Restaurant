@@ -1,31 +1,51 @@
 const mongoose = require("mongoose");
 
 const menuSchema = new mongoose.Schema(
-  {
+{
     name: {
-      type: String,
-      required: true,
+        type: String,
+        required: [true, "Name is required"],
+        minlength: [3, "Name must be at least 3 characters"],
+        maxlength: [50, "Name is too long"]
     },
+
 
     description: {
-      type: String,
+        type: String,
+        maxlength: [500, "Description too long"]
     },
+
 
     price: {
-      type: Number,
-      required: true,
+        type: Number,
+        required: [true, "Price is required"],
+        min: [0, "Price cannot be negative"]
     },
 
+
     category: {
-      type: String,
+        type: String,
+        required: [true, "Category is required"]
     },
-    image: {
-      type: String,
+
+
+   image:{
+    url:{
+        type:String,
+        default:null
     },
-  },
-  {
-    timestamps: true,
-  },
+
+    public_id:{
+        type:String,
+        default:null
+    }
+}
+
+},
+{
+    timestamps: true
+}
 );
+
 
 module.exports = mongoose.model("Menu", menuSchema);

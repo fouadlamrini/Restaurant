@@ -3,7 +3,9 @@ const express = require("express");
 const router = express.Router();
 
 const upload = require("../middleware/upload");
-
+const menuValidation = require("../validations/menuValidation");
+const menuUpdateValidation = require("../validations/menuUpdateValidation");
+const validate = require("../middleware/validate");
 const menuController = require("../controllers/menuController");
 
 
@@ -11,7 +13,7 @@ const menuController = require("../controllers/menuController");
 // CREATE
 router.post(
     "/",
-    upload.single("image"),
+    upload.single("image"),validate(menuValidation),
     menuController.createMenu
 );
 
@@ -34,9 +36,9 @@ router.get(
 
 
 // UPDATE
-router.put(
+router.patch(
     "/:id",
-    upload.single("image"),
+    upload.single("image"),validate(menuUpdateValidation),
     menuController.updateMenu
 );
 
